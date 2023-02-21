@@ -101,17 +101,11 @@ param acrDomainName string = 'acr.com.'
 
 @description('the list of target DNS servers ip address and the port number for conditional forwarding')
 param acrtargetDNS array = [
-    {
-      ipaddress: '10.0.0.14'
-      port: 53
-    }
-    {
-      ipaddress: '10.0.0.15'
-      port: 53
-    }
-  ]
-
-
+  {
+    ipaddress: '10.0.0.14'
+    port: 53
+  }
+]
 
 resource inEndpoint 'Microsoft.Network/dnsResolvers/inboundEndpoints@2022-07-01' = {
   parent: resolver
@@ -164,7 +158,7 @@ resource resolverLink 'Microsoft.Network/dnsForwardingRulesets/virtualNetworkLin
 
 resource fwRules 'Microsoft.Network/dnsForwardingRulesets/forwardingRules@2022-07-01' = {
   parent: fwruleSet
-  name: acrforwardingRuleName
+  name: forwardingRuleName
   properties: {
     domainName: DomainName
     targetDnsServers: targetDNS
@@ -174,7 +168,7 @@ resource fwRules 'Microsoft.Network/dnsForwardingRulesets/forwardingRules@2022-0
 
 resource acrfwRules 'Microsoft.Network/dnsForwardingRulesets/forwardingRules@2022-07-01' = {
   parent: fwruleSet
-  name: forwardingRuleName
+  name: acrforwardingRuleName
   properties: {
     domainName: acrDomainName
     targetDnsServers: acrtargetDNS
