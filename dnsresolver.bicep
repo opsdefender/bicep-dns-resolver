@@ -3,7 +3,7 @@ resource resolverVnet 'Microsoft.Network/virtualNetworks@2021-02-01' existing = 
   name: 'resolverVnet'
 }
 @description('new subnet for inbound connectivity to the dns resolver')
-resource subnetPbdResource 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
+resource subnetdnsResource 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
   name: 'snet-inbound'
   parent: resolverVnet
   properties: {
@@ -11,14 +11,14 @@ resource subnetPbdResource 'Microsoft.Network/virtualNetworks/subnets@2021-02-01
   }
 }
 @description('new subnets for outward cionnectivity from the dns resolver')
-resource subnetPbdResource2 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
+resource subnetdnsResource2 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
   name: 'snet-outbound'
   parent: resolverVnet
   properties: {
     addressPrefix: '10.7.0.16/28'
   }
   dependsOn: [
-    subnetPbdResource
+    subnetdnsResource
   ]
 }
 
