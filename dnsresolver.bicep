@@ -26,31 +26,31 @@ resource subnetdnsResource2 'Microsoft.Network/virtualNetworks/subnets@2021-02-0
 param dnsResolverName string = 'dnsResolver'
 
 @description('the location for resolver VNET and dns private resolver - Azure DNS Private Resolver available in specific region, refer the documenation to select the supported region for this deployment. For more information https://docs.microsoft.com/azure/dns/dns-private-resolver-overview#regional-availability')
-@allowed([
-  'australiaeast'
-  'uksouth'
-  'northeurope'
-  'southcentralus'
-  'westus3'
-  'eastus'
-  'northcentralus'
-  'westcentralus'
-  'eastus2'
-  'westeurope'
-  'centralus'
-  'canadacentral'
-  'brazilsouth'
-  'francecentral'
-  'swedencentral'
-  'switzerlandnorth'
-  'eastasia'
-  'southeastasia'
-  'japaneast'
-  'koreacentral'
-  'southafricanorth'
-  'centralindia'
-])
-param location string
+// @allowed([
+//   'australiaeast'
+//   'uksouth'
+//   'northeurope'
+//   'southcentralus'
+//   'westus3'
+//   'eastus'
+//   'northcentralus'
+//   'westcentralus'
+//   'eastus2'
+//   'westeurope'
+//   'centralus'
+//   'canadacentral'
+//   'brazilsouth'
+//   'francecentral'
+//   'swedencentral'
+//   'switzerlandnorth'
+//   'eastasia'
+//   'southeastasia'
+//   'japaneast'
+//   'koreacentral'
+//   'southafricanorth'
+//   'centralindia'
+// ])
+param location string = resourceGroup().location
 
 @description('name of the subnet that will be used for private resolver inbound endpoint')
 param inboundSubnet string = 'snet-inbound-dnsresolver-aue-04'
