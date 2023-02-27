@@ -73,11 +73,11 @@ param DomainName string = 'auri.com.au.'
 @description('the list of target DNS servers ip address and the port number for conditional forwarding')
 param targetDNS array = [
     {
-      ipaddress: '10.89.160.11'
+      ipaddress: '10.65.160.11'
       port: 53
     }
     {
-      ipaddress: '10.89.160.12'
+      ipaddress: '10.65.160.12'
       port: 53
     }
   ]
