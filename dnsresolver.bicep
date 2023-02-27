@@ -1,21 +1,21 @@
 @description('existing vent for resolver')
 resource resolverVnet 'Microsoft.Network/virtualNetworks@2021-02-01' existing = {
-  name: 'resolverVnet'
+  name: 'vnet-pocspoke-aue-001'
 }
 @description('new subnet for inbound connectivity to the dns resolver')
 resource subnetdnsResource 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
-  name: 'snet-inbound'
+  name: 'snet-inbound-dnsresolver-aue-04'
   parent: resolverVnet
   properties: {
-    addressPrefix: '10.7.0.0/28'
+    addressPrefix: '10.150.44.0/24'
   }
 }
 @description('new subnets for outward cionnectivity from the dns resolver')
 resource subnetdnsResource2 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
-  name: 'snet-outbound'
+  name: 'snet-outbound-dnsresolver-aue-05'
   parent: resolverVnet
   properties: {
-    addressPrefix: '10.7.0.16/28'
+    addressPrefix: '10.150.45.0/24'
   }
   dependsOn: [
     subnetdnsResource
@@ -53,10 +53,10 @@ param dnsResolverName string = 'dnsResolver'
 param location string
 
 @description('name of the subnet that will be used for private resolver inbound endpoint')
-param inboundSubnet string = 'snet-inbound'
+param inboundSubnet string = 'snet-inbound-dnsresolver-aue-04'
 
 @description('name of the subnet that will be used for private resolver outbound endpoint')
-param outboundSubnet string = 'snet-outbound'
+param outboundSubnet string = 'snet-outbound-dnsresolver-aue-05'
 
 @description('name of the vnet link that links outbound endpoint with forwarding rule set')
 param resolvervnetlink string = 'vnetlink'
@@ -65,19 +65,19 @@ param resolvervnetlink string = 'vnetlink'
 param forwardingRulesetName string = 'forwardingRule'
 
 @description('name of the forwarding rule name')
-param forwardingRuleName string = 'contosocom'
+param forwardingRuleName string = 'auricomau'
 
 @description('the target domain name for the forwarding ruleset')
-param DomainName string = 'contoso.com.'
+param DomainName string = 'auri.com.au.'
 
 @description('the list of target DNS servers ip address and the port number for conditional forwarding')
 param targetDNS array = [
     {
-      ipaddress: '10.0.0.4'
+      ipaddress: '10.89.160.11'
       port: 53
     }
     {
-      ipaddress: '10.0.0.5'
+      ipaddress: '10.89.160.12'
       port: 53
     }
   ]
@@ -94,15 +94,15 @@ resource resolver 'Microsoft.Network/dnsResolvers@2022-07-01' = {
 } 
 
 @description('name of the forwarding rule name azure resource ')
-param acrforwardingRuleName string = 'acrcom'
+param acrforwardingRuleName string = 'privatelinkazurecrio'
 
 @description('the target domain name for the forwarding ruleset such as azure resource privatelink.azurecr.io')
-param acrDomainName string = 'acr.com.'
+param acrDomainName string = 'privatelink.azurecr.io.'
 
 @description('the list of target DNS servers ip address and the port number for conditional forwarding')
 param acrtargetDNS array = [
   {
-    ipaddress: '10.0.0.14'
+    ipaddress: '10.150.40.5'
     port: 53
   }
 ]
